@@ -3,7 +3,17 @@ Write-Host "🚀 Building Tool Viber for Windows..." -ForegroundColor Green
 
 # Kiểm tra admin rights
 if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Write-Host "⚠️  Khuyến nghị chạy as Administrator để tránh lỗi quyền" -ForegroundColor Yellow
+    Write-Host "⚠️  CẢNH BÁO: Không chạy với quyền Administrator!" -ForegroundColor Red
+    Write-Host "   Có thể gặp lỗi code signing. Khuyến nghị:" -ForegroundColor Yellow
+    Write-Host "   1. Đóng PowerShell này" -ForegroundColor White
+    Write-Host "   2. Right-click PowerShell → Run as Administrator" -ForegroundColor White
+    Write-Host "   3. Chạy lại script này" -ForegroundColor White
+    
+    $choice = Read-Host "`nBạn có muốn tiếp tục không? (y/N)"
+    if ($choice -ne "y" -and $choice -ne "Y") {
+        Write-Host "Đã hủy. Hãy chạy lại với quyền Administrator." -ForegroundColor Red
+        exit 1
+    }
 }
 
 # Kiểm tra Node.js
